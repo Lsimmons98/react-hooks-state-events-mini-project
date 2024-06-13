@@ -1,17 +1,23 @@
 import React from "react";
 import Task from './Task'
 
-function TaskList({displayedTasksByCategory, editDisplayedTasks, displayedTasks, editDisplayedTasksByCategory}) {
-
+function TaskList({ tasks, setTasks }) {
   const deleteTask = (taskID) => {
-    const filteredTasks = displayedTasks.filter(task => task.text !== taskID)
-    console.log(filteredTasks)
-    editDisplayedTasks(filteredTasks)
-    editDisplayedTasksByCategory(filteredTasks)
+    const filteredTasks = tasks.filter(task => task.text !== taskID)
+
+    setTasks(filteredTasks)
   }
 
-  const showTasks = () => displayedTasksByCategory.map((task) => <Task text={task.text} key={task.text }category={task.category} filterTasks={deleteTask}/>)
-
+  const showTasks = () => (
+    tasks.map((task) => (
+      <Task
+        key={task.text }
+        category={task.category}
+        filterTasks={deleteTask}
+        text={task.text}
+      />
+    ))
+  )
 
   return (
     <div className="tasks">
